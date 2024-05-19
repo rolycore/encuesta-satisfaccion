@@ -1,26 +1,6 @@
-const express = require('express');
-const cors = require('cors');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
 
-const app = express();
-const PORT = 5000;
-
-app.use(cors());
-app.use(express.json());
-
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: false,
-  auth: {
-    user: process.env.SMTP_EMAIL,
-    pass: process.env.SMTP_PASSWORD,
-  },
-  logger: true, // Habilitar registro
-});
-
-app.post('/send-survey', (req, res) => {
+exports.handler = async (event, context) => {
   const {
     nombre,
     correoElectronico, serviciobrindado,
@@ -31,17 +11,24 @@ app.post('/send-survey', (req, res) => {
     tiempoRespuesta, eficienciaResolución, calidadSoporte, disponibilidadSoporte, comunicaciónProceso, satisfacciónSoporte, comentariosSoporte, 
     seguridadAplicacion, proteccionInfoPersonal, seguridadAuthAcceso, encriptacionDatos, manejoSeguridad, politicaPrivTransparencia, concienciacionSeguridad, satisfacionGeneralSeguridad, comentariosSeguridad,
     disponibilidadRecursoAprendizaje, claridadTutorial, utilidadTutorial, formatoRecurso, accesibilidadRecurso, frecuenciaActTutorial, satisfaccionRecursoAprendizaje, comentariosAprendizaje
-  } = req.body;
+  } = JSON.parse(event.body);
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD,
+    },
+  });
 
   const mailOptions = {
-    from:  process.env.SMTP_EMAIL,
-    to: correoElectronico,
+    from: process.env.EMAIL,
+    to: process.env.RECIPIENT_EMAIL,
     subject: 'Resultados de la Encuesta de Satisfacción',
     text: `
       Nombre: ${nombre}
       Correo Electrónico: ${correoElectronico}
       Servicio brindado: ${serviciobrindado}
-
       Cumplimiento de Requisitos Previos: ${cumplimiento}
       Necesidad de Cambios Adicionales: ${cambios}
       Requisitos Principales para el Desarrollo: ${requisitos}
@@ -104,18 +91,19 @@ app.post('/send-survey', (req, res) => {
       Frecuencia de Actualización de los Tutoriales y Guías: ${frecuenciaActTutorial}
       Satisfacción General con los Recursos de Aprendizaje: ${satisfaccionRecursoAprendizaje}
       Comentarios y Sugerencias: ${comentariosAprendizaje}
-
     `
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      return res.status(500).send(error.toString());
-    }
-    res.status(200).send('Correo enviado: ' + info.response);
-  });
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor funcionando en el puerto ${PORT}`);
-});
+  try {
+    await transporter.sendMail(mailOptions);
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Correo enviado con éxito' })
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Hubo un problema al enviar el correo' })
+    };
+  }
+};

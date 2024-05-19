@@ -1,5 +1,12 @@
+const express = require('express');
+const cors = require('cors');
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
+const app = express();
+
+app.use(cors());
+app.use(express.json());
 exports.handler = async (event, context) => {
   const {
     nombre,
@@ -14,18 +21,20 @@ exports.handler = async (event, context) => {
   } = JSON.parse(event.body);
 
   const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
+      user: process.env.SMTP_EMAIL,
+      pass: process.env.SMTP_PASSWORD,
     },
   });
 
   const mailOptions = {
-    from: process.env.EMAIL,
-    to: process.env.RECIPIENT_EMAIL,
+    from: process.env.SMTP_EMAIL,
+    to: correoElectronico,
     subject: 'Resultados de la Encuesta de Satisfacción',
-    context: `
+    text: `
       Nombre: ${nombre}
       Correo Electrónico: ${correoElectronico}
       Servicio brindado: ${serviciobrindado}

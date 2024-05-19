@@ -678,7 +678,7 @@ const SurveyForm = () => {
         <option value="No estoy seguro/a.">No estoy seguro/a.</option>
       </select>
       <label>Frecuencia de Actualización de los Tutoriales y Guías:</label>
-    <select value={accesibilidadRecurso} onChange={(e)=> setAccesibilidadRecurso(e.target.value)} required>
+    <select value={frecuenciaActTutorial} onChange={(e)=> setFrecuenciaActTutorial(e.target.value)} required>
       <option value="">Selecciona una opción</option>
         <option value="Los tutoriales y guías se actualizan regularmente.">Los tutoriales y guías se actualizan regularmente.</option>
         <option value="Se necesitan actualizaciones más frecuentes.">Se necesitan actualizaciones más frecuentes.</option>

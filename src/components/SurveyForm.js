@@ -610,7 +610,7 @@ const SurveyForm = () => {
       {/* ... (repite el patrón anterior para todas las nuevas preguntas de esta sección) */}
       <label>Sugerencias y Comentarios Adicionales:</label>
       <p>¿Tienes alguna sugerencia específica o comentario adicional sobre cómo podemos mejorar los tiempos de respuesta y el soporte?</p>
-      <textarea value={comentariosSoporte} onChange={(e)=> setComentariosSoporte} />
+      <textarea value={comentariosSoporte} onChange={(e)=> setComentariosSoporte(e.target.value)} />
 
       <h2>Sección sobre la Seguridad de la Aplicación y la Protección de los Datos</h2>
     <p>Agradecemos tu participación en nuestra encuesta. La seguridad de la aplicación y la protección de los datos son prioridades para nosotros. Por favor, comparte tus experiencias y sugerencias con sinceridad.</p>

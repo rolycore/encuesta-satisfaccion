@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
     from: process.env.EMAIL,
     to: process.env.RECIPIENT_EMAIL,
     subject: 'Resultados de la Encuesta de Satisfacción',
-    text: `
+    context: `
       Nombre: ${nombre}
       Correo Electrónico: ${correoElectronico}
       Servicio brindado: ${serviciobrindado}
@@ -103,7 +103,7 @@ exports.handler = async (event, context) => {
   } catch (error) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Hubo un problema al enviar el correo' })
+      body: JSON.stringify({ error: error.message })
     };
   }
 };

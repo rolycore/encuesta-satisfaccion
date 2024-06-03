@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitud de Cotización - Shalom Solution Tech</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      background-color: #333;
+      color: #ffffff;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .content {
+      padding: 20px;
+    }
+    .content p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    .footer {
+      background-color: #333;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Shalom Solution Tech</h1>
+    </div>
+    <div class="content">
+      <p>Hola <strong>{{name}}</strong>,</p>
+      <p>¡Estamos muy emocionados de poder ayudarte a solucionar tus problemas tecnológicos con nuestras soluciones efectivas!</p>
+      <p>Hemos recibido tu solicitud de cotización para el servicio: <strong>{{serviceName}}</strong>.</p>
+      <p><strong>Detalles de tu solicitud:</strong></p>
+      <p>Nombre: {{name}}<br/>
+      Correo Electrónico: {{email}}<br/>
+      Teléfono: {{phone}}<br/>
+      Mensaje: {{message}}</p>
+      <p>Nos pondremos en contacto contigo pronto para discutir más sobre tus necesidades y cómo podemos ayudarte a alcanzar tus objetivos tecnológicos.</p>
+      <p>Gracias por confiar en nosotros.</p>
+      <p>Saludos cordiales,<br/>El equipo de Shalom Solution Tech</p>
+    </div>
+    <div class="footer">
+      &copy; 2024 Shalom Solution Tech. Todos los derechos reservados.
+    </div>
+  </div>
+</body>
+</html>
